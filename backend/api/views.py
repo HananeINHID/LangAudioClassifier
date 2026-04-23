@@ -103,9 +103,9 @@ def route_audio(request):
         modele = ApiConfig.get_model('routeur')
         
         if modele is None:
-            print("Modèle non chargé - Mode MOCK activé")
+            print("ATTENTION: Modèle ROUTEUR NON CHARGÉ - Mode MOCK activé avec résultats FICTIFS ")
         else:
-            print("Modèle Routeur chargé en mémoire")
+            print("Modèle Routeur correctement chargé en mémoire")
         
         # 4. Traiter le fichier audio
         result = process_audio_file(audio_file, modele, seuil_confiance)
