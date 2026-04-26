@@ -308,7 +308,10 @@ def preprocess_audio(audio_path):
         print(f"   -> Audio chargé avec succès (sr={sr}, longueur={len(y)} samples)")
         
         # Trim silence
-        y, _ = librosa.effects.trim(y, top_db=20)
+        intervals = librosa.effects.split(y, top_db=35)
+        if len(intervals) > 0:
+            segments = [y[s:e] for s, e in intervals]
+            y = np.concatenate(segments)
         
         # Force 5s duration (16000 * 5 = 80000 samples)
         target_length = 80000
@@ -348,7 +351,10 @@ def preprocess_audio_m3(audio_path):
     """
     try:
         y, sr = librosa.load(audio_path, sr=16000, mono=True)
-        y, _ = librosa.effects.trim(y, top_db=20)
+        intervals = librosa.effects.split(y, top_db=35)
+        if len(intervals) > 0:
+            segments = [y[s:e] for s, e in intervals]
+            y = np.concatenate(segments)
         
         target_length = 80000
         if len(y) > target_length:
