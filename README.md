@@ -1,45 +1,78 @@
-# DialectID - Application de Classification Audio
+# DialectID - Application de Classification Audio IA
 
-Application SaaS d'intelligence artificielle pour la détection et classification des dialectes audio (Darija, Amazigh, Arabe Standard, Anglais, Français).
+DialectID est une application web intelligente (SaaS) basée sur une architecture de **Machine Learning hiérarchique**. Elle permet la détection et la classification avec une grande précision des dialectes audio (Darija, Amazigh, Arabe Standard, Anglais, Français).
+
+## 🗂 Dataset
+
+Le dataset utilisé pour entraîner nos modèles CNN est disponible sur Google Drive :
+👉 **[Lien vers le Dataset DialectID](https://drive.google.com/drive/folders/16h5BjxCcy9ErUR5Sk6Ike_mCUlhihlT_?usp=drive_link)**
 
 ## 🎯 Architecture du Projet
 
+Le projet est divisé en deux parties distinctes :
+
 ```
 LangAudioClassifier/
-├── backend/          # Django REST API + Pipeline ML
-├── frontend/         # React + Vite + Capacitor
-└── models/           # Modèles .h5 (M1 à M5)
+├── backend/          # Django REST Framework + Pipeline ML TensorFlow
+├── frontend/         # React + Vite + Tailwind CSS (Interface claire et moderne)
+└── models/           # Modèles pré-entraînés .h5 (M1 à M5)
 ```
 
-## 📁 Structure Complète
+## 📁 Structure Complète Actuelle
 
 ### Backend (Django)
 
+L'API orchestre un pipeline de 5 modèles CNN en cascade pour filtrer, puis classifier avec précision le flux audio.
+
 | Fichier | Description |
 |---------|-------------|
-| `api/views.py` | Vue principale de l'API |
-| `api/services/ml_pipeline.py` | Orchestrateur ML avec les 5 modèles |
-| `api/urls.py` | Routes API |
-| `orchestrator.py` | Script de test standalone |
+| `api/views.py` | Points d'entrée de l'API REST (ex: `/api/predict/`) |
+| `api/services/ml_pipeline.py` | Cœur de l'orchestrateur ML gérant les 5 modèles |
+| `api/urls.py` | Routage des appels API |
+| `preprocessing.py` | Extraction des caractéristiques audio (MFCC, Mel-Spectrogram) |
 
 ### Frontend (React)
 
+L'interface a été entièrement modernisée pour offrir un rendu SaaS professionnel, clair et réactif (Light Theme).
+
 | Fichier | Description |
 |---------|-------------|
-| `src/App.jsx` | Router et layout principal |
-| `src/pages/Home.jsx` | Page d'accueil avec upload/record |
-| `src/pages/Analyzing.jsx` | Page de chargement avec animations |
-| `src/pages/Result.jsx` | Page de résultats avec PipelineStepper |
-| `src/components/AudioUploader.jsx` | Zone de drag & drop |
-| `src/components/AudioRecorder.jsx` | Enregistreur audio |
-| `src/components/PipelineStepper.jsx` | Visualisation du pipeline |
-| `src/components/Loader.jsx` | Animation de chargement |
-| `src/components/ResultCard.jsx` | Carte de résultat |
-| `src/components/History.jsx` | Historique des analyses |
-| `src/components/ThemeToggle.jsx` | Toggle dark/light mode |
-| `src/services/api.js` | Service API avec Axios |
-| `src/hooks/useTheme.js` | Hook pour le thème |
-| `src/hooks/useLocalStorage.js` | Hook pour le localStorage |
+| `src/App.jsx` | Router principal (`/`, `/dashboard`, `/history`) |
+| `src/pages/HomePage.jsx` | Landing page présentant les capacités du pipeline ML |
+| `src/pages/DashboardPage.jsx` | Wrapper de la page d'analyse |
+| `src/pages/HistoryPage.jsx` | Historique local des analyses de l'utilisateur |
+| `src/components/AudioAnalyzer.jsx`| Interface principale (Upload/Enregistrement & Affichage des Niveaux de Pipeline) |
+| `src/components/layout/Navbar.jsx`| Navigation fluide |
+| `src/services/api.js` | Service Axios gérant les requêtes vers Django |
+
+## 🧠 Architecture du Pipeline ML
+
+Le système utilise un routage conditionnel pour optimiser la performance et la précision.
+
+```text
+M1 (Routeur) ─┬─> Local ──> M2 ─┬─> Darija ──> M5 ──> [Chamal / Dakhil / Sahra]
+              │                  │
+              │                  └─> Amazigh ──> M4 ──> [Souss / Atlas / Rif]
+              │
+              └─> Standard ──> M3 ──> [Arabe / Anglais / Français]
+              
+              └─> Bruit ──> REJETÉ (Analyse stoppée)
+```
+
+### Exemple de Réponse JSON (API)
+
+```json
+{
+  "pipeline": {
+    "niveau1": { "modele": "Routeur", "classe": "Local", "confiance": 0.97, "disponible": true },
+    "niveau2": { "modele": "Famille Locale", "classe": "Amazigh", "confiance": 0.85, "disponible": true },
+    "niveau3": { "modele": "Dialectes Amazigh", "classe": "Rif", "confiance": 0.81, "disponible": true }
+  },
+  "decision_finale": "Amazigh - Rif",
+  "confiance": 0.81,
+  "audio_valide": true
+}
+```
 
 ## 🚀 Démarrage Rapide
 
@@ -58,13 +91,11 @@ venv\Scripts\activate
 source venv/bin/activate
 
 # Installer les dépendances
-pip install django djangorestframework django-cors-headers tensorflow librosa numpy
+pip install -r requirements.txt
 
-# Lancer le serveur
+# Lancer le serveur (par défaut sur le port 8000)
 python manage.py runserver
 ```
-
-Le backend sera accessible sur `http://localhost:8000`
 
 ### 2. Frontend React
 
@@ -80,196 +111,36 @@ npm run dev
 # Build pour production
 npm run build
 ```
+Le frontend sera accessible sur `http://localhost:5173`.
 
-Le frontend sera accessible sur `http://localhost:5173`
+## 🎨 Design System (Interface SaaS)
 
-## 📱 Build APK Android (Capacitor)
+L'application utilise désormais un **Thème Clair Professionnel** :
+- **Fond principal** : Blanc cassé (`#F8FAFC`).
+- **Brand / Accent** : Indigo (`#4F46E5`) & Violet pour les gradients subtils.
+- **Typographie** : Inter (lisible, moderne).
+- **Composants** : Cartes avec bordures légères (`#E2E8F0`), ombres douces (`shadow-sm`).
 
-### Prérequis
-- Android Studio installé
-- SDK Android configuré
-- JAVA_HOME défini
+## 📱 Fonctionnalités Actuelles
 
-### Commandes de build
-
-```bash
-cd frontend
-
-# 1. Première installation (une seule fois)
-npm install
-npx cap init DialectID com.dialectid.app --web-dir dist
-npx cap add android
-
-# 2. Build régulier
-npm run cap:build:android
-
-# Ou manuellement:
-npm run build
-npx cap sync android
-npx cap open android
-```
-
-### Dans Android Studio
-
-1. Ouvrir le projet dans `frontend/android/`
-2. Attendre la synchronisation Gradle
-3. Menu **Build → Build Bundle(s) / APK(s) → Build APK(s)**
-4. L'APK sera généré dans `android/app/build/outputs/apk/debug/`
-
-## 🔧 Configuration
-
-### Variables d'environnement Frontend
-
-Créer un fichier `.env` dans `frontend/` :
-
-```env
-VITE_API_URL=http://localhost:8000/api
-```
-
-Pour mobile (production) :
-```env
-VITE_API_URL=https://votre-api.com/api
-```
-
-### Configuration Capacitor
-
-Fichier `capacitor.config.json` :
-
-```json
-{
-  "appId": "com.dialectid.app",
-  "appName": "DialectID",
-  "webDir": "dist",
-  "server": {
-    "cleartext": true
-  }
-}
-```
-
-## 📊 Pipeline ML
-
-```
-M1 (Routeur) ─┬─> Local ──> M2 ─┬─> Darija ──> M5 ──> [Chamal/Dakhil/Sahra]
-              │                  │
-              │                  └─> Amazigh ──> M4 ──> [Souss/Atlas/Rif]
-              │
-              └─> Standard ──> M3 ──> [Arabe/Anglais/Français]
-              
-              └─> Bruit ──> STOP
-```
-
-### Format de réponse JSON
-
-```json
-{
-  "chemin": [
-    {"etape": 1, "modele": "M1 (Routeur)", "prediction": "Local", "confiance": 0.89, "icone": "route"},
-    {"etape": 2, "modele": "M2 (Famille Locale)", "prediction": "Darija", "confiance": 0.95, "icone": "home"},
-    {"etape": 3, "modele": "M5 (Dialectes Darija)", "prediction": "Chamal", "confiance": 0.82, "icone": "map-pin"}
-  ],
-  "decision_finale": "Darija - Chamal",
-  "audio_valide": true,
-  "famille": "Darija",
-  "sous_dialecte": "Chamal",
-  "code": "DAR_0"
-}
-```
-
-## 🎨 Design System
-
-### Couleurs
-- **Primary**: Indigo (#6366f1)
-- **Accent**: Violet (#d946ef)
-- **Success**: Emeraude (#10b981)
-- **Warning**: Ambre (#f59e0b)
-- **Danger**: Rose (#f43f5e)
-
-### Thèmes
-- Light mode: fond off-white, cartes blanches glassmorphism
-- Dark mode: fond slate-900, glassmorphism renforcé
-
-### Composants UI
-- Glass cards avec `backdrop-blur-md`
-- Boutons avec gradients et glow
-- Animations Framer Motion
-- Icônes Lucide React
-
-## 📱 Fonctionnalités Mobile
-
-- ✅ Enregistrement audio natif
-- ✅ Upload de fichiers audio
-- ✅ Visualisation du pipeline en temps réel
-- ✅ Historique des analyses (localStorage)
-- ✅ Export JSON des résultats
-- ✅ Partage des résultats
-- ✅ Mode offline (données en cache)
-- ✅ Dark/Light mode
-
-## 🧪 Test avec Mock
-
-Le système fonctionne même sans les modèles M2-M5 grâce aux mocks qui génèrent des prédictions réalistes pour le développement et les tests UI.
-
-## 🔒 Permissions Android
-
-Le fichier `AndroidManifest.xml` inclut :
-- `RECORD_AUDIO` - Pour l'enregistrement
-- `READ_EXTERNAL_STORAGE` - Pour l'upload
-- `INTERNET` - Pour l'API
-
-## 📝 Scripts NPM
-
-| Commande | Description |
-|----------|-------------|
-| `npm run dev` | Dev server Vite |
-| `npm run build` | Build production |
-| `npm run cap:sync` | Sync Capacitor |
-| `npm run cap:open:android` | Ouvrir Android Studio |
-| `npm run cap:build:android` | Build APK debug |
-| `npm run mobile:dev` | Dev mode pour mobile |
+- ✅ Enregistrement audio natif via microphone
+- ✅ Upload de fichiers audio (WAV, MP3, OGG, M4A)
+- ✅ Visualisation dynamique du pipeline de décision (M1 ➔ M2 ➔ M3/4/5)
+- ✅ Historique des analyses stocké localement
+- ✅ Responsive Design fluide (Mobile / Desktop)
 
 ## 🐛 Dépannage
 
-### Problème CORS
-Ajouter dans `settings.py` :
+### Problème CORS (Communication Front/Back)
+Assurez-vous que l'URL du frontend est autorisée dans `settings.py` :
 ```python
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "http://localhost:8100",
 ]
 ```
 
-### Erreur de build Capacitor
-```bash
-rm -rf android
-npx cap add android
-npx cap sync
-```
-
 ### Microphone non détecté
-Vérifier les permissions dans Android > Paramètres > Applications > DialectID > Permissions
-
-## 📚 Documentation API
-
-### Endpoints
-
-| Méthode | Endpoint | Description |
-|---------|----------|-------------|
-| GET | `/api/` | Health check |
-| POST | `/api/predict/` | Analyser un fichier audio |
-
-### Exemple requête
-
-```bash
-curl -X POST http://localhost:8000/api/predict/ \
-  -F "audio=@fichier.wav"
-```
-
-## 🎓 Crédits
-
-- Frontend: React 18, Vite, Tailwind CSS, Framer Motion
-- Backend: Django 4, Django REST Framework, TensorFlow
-- Mobile: Capacitor 6, Android SDK
+Le navigateur bloquera le microphone si l'application n'est pas servie en `localhost` ou `https`. Vérifiez l'URL ou acceptez l'autorisation contextuelle.
 
 ---
-
-**DialectID** - Intelligence Artificielle pour la préservation des dialectes
+**DialectID** - Intelligence Artificielle pour la classification et la préservation des dialectes.
