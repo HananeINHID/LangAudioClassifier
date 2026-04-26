@@ -1,0 +1,177 @@
+c:\Users\Admin\Documents\audio_dl\audio\audio_003.wav# PYTHON / DJANGO BACKEND
+
+# Virtual Environment
+venv/
+backend/venv/
+env/
+ENV/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+backend/db.sqlite3
+backend/db.sqlite3-journal
+media/
+staticfiles/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# REACT / VITE FRONTEND
+
+# Dependencies
+node_modules/
+frontend/node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+dist-ssr/
+frontend/dist/
+*.local
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# MACHINE LEARNING / DATA
+
+# Large model files
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+*.pth
+*.pt
+*.onnx
+*.tflite
+*.pb
+*.savedmodel/
+
+dataset_extrait/
+spectrograms/
+spectrograms.zip
+*.zip
+*.tar
+*.tar.gz
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+*.nbconvert.ipynb
+*.ipynb
+
+# LOGS & ENVIRONMENT
+
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+
+# IDE & OS
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.code-workspace
+
+# IntelliJ / PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.nfs*
+
+# MISC
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Lock files (optional - keep if you want deterministic installs)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Testing
+/coverage
+.nyc_output
+
+# Misc
+.cache/
+.parcel-cache
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+#Audio files 
+*.wav
+*.mp3
+

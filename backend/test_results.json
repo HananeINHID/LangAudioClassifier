@@ -1,0 +1,51 @@
+{
+  "model_name": "modele1_v2_optimise",
+  "normalisation": "zscore",
+  "global_mean": -56.048,
+  "global_std": 16.5212,
+  "accuracy": 0.9584,
+  "classes": [
+    "local",
+    "standard",
+    "bruit"
+  ],
+  "per_class_metrics": {
+    "local": {
+      "precision": 0.9948,
+      "recall": 0.9524,
+      "f1": 0.9731,
+      "support": 9284
+    },
+    "standard": {
+      "precision": 0.9793,
+      "recall": 0.9561,
+      "f1": 0.9676,
+      "support": 3964
+    },
+    "bruit": {
+      "precision": 0.788,
+      "recall": 0.9931,
+      "f1": 0.8788,
+      "support": 1883
+    }
+  },
+  "confusion_matrix": [
+    [
+      8842,
+      79,
+      363
+    ],
+    [
+      34,
+      3790,
+      140
+    ],
+    [
+      12,
+      1,
+      1870
+    ]
+  ],
+  "test_samples": 15131,
+  "generated_at": "2026-04-23"
+}

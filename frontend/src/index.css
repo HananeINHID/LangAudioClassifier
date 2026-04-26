@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Fond principal — blanc cassé professionnel */
+  --color-bg-primary:    #F8FAFC;
+  --color-bg-secondary:  #FFFFFF;
+  --color-bg-card:       #FFFFFF;
+  --color-bg-hover:      #F1F5F9;
+
+  /* Texte */
+  --color-text-primary:  #0F172A;
+  --color-text-secondary:#475569;
+  --color-text-muted:    #94A3B8;
+
+  /* Brand — indigo professionnel */
+  --color-brand:         #4F46E5;
+  --color-brand-hover:   #4338CA;
+  --color-brand-light:   #EEF2FF;
+
+  /* Accents */
+  --color-success:       #10B981;
+  --color-warning:       #F59E0B;
+  --color-error:         #EF4444;
+
+  /* Bordures */
+  --color-border:        #E2E8F0;
+  --color-border-strong: #CBD5E1;
+}
+
+body {
+  background-color: #F8FAFC;
+  color: #0F172A;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Hide file input */
+input[type="file"] {
+  display: none;
+}
+
+/* Audio element */
+audio {
+  width: 100%;
+  border-radius: 12px;
+  outline: none;
+}
+
+audio::-webkit-media-controls-panel {
+  background: #EEF2FF;
+  border-radius: 12px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+/* Selection */
+::selection {
+  background: #EEF2FF;
+  color: #4F46E5;
+}
