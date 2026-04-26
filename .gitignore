@@ -93,6 +93,7 @@ spectrograms.zip
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 *.nbconvert.ipynb
+*.ipynb
 
 # LOGS & ENVIRONMENT
 
@@ -168,4 +169,9 @@ $RECYCLE.BIN/
 *.njsproj
 *.sln
 *.sw?
+
+
+#Audio files 
+*.wav
+*.mp3
 
