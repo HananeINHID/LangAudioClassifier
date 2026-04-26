@@ -1,133 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Inter', system-ui, sans-serif;
+  /* Fond principal — blanc cassé professionnel */
+  --color-bg-primary:    #F8FAFC;
+  --color-bg-secondary:  #FFFFFF;
+  --color-bg-card:       #FFFFFF;
+  --color-bg-hover:      #F1F5F9;
 
-  /* Violet primary palette */
-  --color-primary-50: #f5f3ff;
-  --color-primary-100: #ede9fe;
-  --color-primary-200: #ddd6fe;
-  --color-primary-300: #c4b5fd;
-  --color-primary-400: #a78bfa;
-  --color-primary-500: #8b5cf6;
-  --color-primary-600: #7c3aed;
-  --color-primary-700: #6d28d9;
-  --color-primary-800: #5b21b6;
-  --color-primary-900: #4c1d95;
+  /* Texte */
+  --color-text-primary:  #0F172A;
+  --color-text-secondary:#475569;
+  --color-text-muted:    #94A3B8;
 
-  /* Gray palette */
-  --color-gray-50: #fafafa;
-  --color-gray-100: #f5f5f5;
-  --color-gray-200: #e5e5e5;
-  --color-gray-300: #d4d4d4;
-  --color-gray-400: #a3a3a3;
-  --color-gray-500: #737373;
-  --color-gray-600: #525252;
-  --color-gray-700: #404040;
-  --color-gray-800: #262626;
-  --color-gray-900: #171717;
-}
+  /* Brand — indigo professionnel */
+  --color-brand:         #4F46E5;
+  --color-brand-hover:   #4338CA;
+  --color-brand-light:   #EEF2FF;
 
-:root {
-  /* Single Primary: Violet */
-  --primary: #7c3aed;
-  --primary-dark: #6d28d9;
+  /* Accents */
+  --color-success:       #10B981;
+  --color-warning:       #F59E0B;
+  --color-error:         #EF4444;
 
-  /* Grays */
-  --gray-50: #fafafa;
-  --gray-100: #f5f5f5;
-  --gray-200: #e5e5e5;
-  --gray-300: #d4d4d4;
-  --gray-400: #a3a3a3;
-  --gray-500: #737373;
-  --gray-600: #525252;
-  --gray-700: #404040;
-  --gray-800: #262626;
-  --gray-900: #171717;
-
-  /* Semantic */
-  --bg: white;
-  --text: var(--gray-900);
-  --text-secondary: var(--gray-500);
-  --border: var(--gray-200);
-}
-
-.dark {
-  --bg: var(--gray-900);
-  --text: white;
-  --text-secondary: var(--gray-400);
-  --border: var(--gray-800);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  /* Bordures */
+  --color-border:        #E2E8F0;
+  --color-border-strong: #CBD5E1;
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Card - minimal */
-.card {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 32px;
-}
-
-.dark .card {
-  background: var(--gray-800);
-}
-
-/* Button - primary */
-.btn-primary {
-  background: var(--primary);
-  color: white;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-weight: 500;
-  transition: all 0.15s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.btn-primary:hover {
-  background: var(--primary-dark);
-  transform: translateY(-1px);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-/* Button - secondary */
-.btn-secondary {
-  background: transparent;
-  color: var(--text);
-  padding: 16px 32px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  font-weight: 500;
-  transition: all 0.15s ease;
-}
-
-.btn-secondary:hover {
-  background: var(--gray-100);
-  border-color: var(--gray-300);
-}
-
-.dark .btn-secondary:hover {
-  background: var(--gray-800);
+  background-color: #F8FAFC;
+  color: #0F172A;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Hide file input */
@@ -135,36 +39,26 @@ input[type="file"] {
   display: none;
 }
 
-/* Scrollbar - minimal */
-::-webkit-scrollbar {
-  width: 6px;
+/* Audio element */
+audio {
+  width: 100%;
+  border-radius: 12px;
+  outline: none;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+audio::-webkit-media-controls-panel {
+  background: #EEF2FF;
+  border-radius: 12px;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--gray-300);
-  border-radius: 3px;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
-.dark ::-webkit-scrollbar-thumb {
-  background: var(--gray-700);
-}
-
-.pending-badge {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  background: #fefce8;
-  border: 1px solid #fde047;
-  border-radius: 8px;
-  color: #854d0e;
-  font-size: 14px;
-}
-
-.pending-badge span {
-  font-size: 24px;
+/* Selection */
+::selection {
+  background: #EEF2FF;
+  color: #4F46E5;
 }
